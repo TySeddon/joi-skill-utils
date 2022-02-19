@@ -2,6 +2,7 @@
 The purpose of this project is to provide a central place for all shared and utility classes used by the Mycroft Skills developed for the Joi project.  By centralizing these classes, we not only share our code easier, but we also make our skills smaller.  In addition, this package install process will install all the necessary 3rd party Python packages, which simplifies the setup of skills on Mycroft.
 
 # Required Packages
+    pip install msk
     pip install munch
     pip install requests
     pip install pyyaml
