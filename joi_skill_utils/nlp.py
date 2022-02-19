@@ -5,8 +5,8 @@ from azure.ai.language.questionanswering import QuestionAnsweringClient
 from azure.ai.language.questionanswering import models as qna
 import re
 from munch import munchify
-from .enviro import get_setting
 from itertools import groupby
+from .enviro import get_setting
 
 class NLP():
 

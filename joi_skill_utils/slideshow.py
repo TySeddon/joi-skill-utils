@@ -6,15 +6,12 @@ from munch import munchify
 import json
 from .enviro import get_setting
 
-JOI_SERVER_URL = get_setting("joi_server_url")
-
-SLIDESHOW_API_PATH = '/joi/v1/slideshows/'
-
 class Slideshow():
 
     def __init__(self):
+        JOI_SERVER_URL = get_setting("joi_server_url")
         self.slideshow_id = uuid.uuid4()
-        self.url = JOI_SERVER_URL + SLIDESHOW_API_PATH
+        self.url = f"{JOI_SERVER_URL}/joi/v1/slideshows/"
         self.tick_count = 0
         self.start()
 

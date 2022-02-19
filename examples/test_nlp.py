@@ -1,8 +1,3 @@
-
-# pip install azure-ai-textanalytics==5.1.0
-# pip install azure-ai-textanalytics==5.2.0b1
-# pip install azure-ai-language-questionanswering
-
 from joi_skill_utils.nlp import NLP
 from joi_skill_utils.dialog import Dialog
 
