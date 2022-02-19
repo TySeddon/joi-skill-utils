@@ -110,7 +110,7 @@ class MotionDetection():
             else:
                 last_event = current_event   
                 if self.message_bus:
-                    self.log(f"{last_event.Event}, {last_event.DateTime.isoformat()}")
+                    #self.log(f"{last_event.Event}, {last_event.DateTime.isoformat()}")
                     self.message_bus.emit(Message("skill.joi-skill-utils.motion_event", data={'event':last_event.Event, 'datetime':''}))
             self.is_motion = last_event.Event == "MotionStart"
 
