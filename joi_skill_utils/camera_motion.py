@@ -84,35 +84,35 @@ class MotionDetection():
         start_time = datetime.utcnow()
         motion_events = []
         motion_event_pairs = []
-        last_event = None
+        self.last_event = None
         if bool(self.camera.is_motion_detected):
             starting_event = self.build_motion_event('MotionStart')
             motion_events.append(starting_event)
-            last_event = starting_event
+            self.last_event = starting_event
         else:        
             starting_event = self.build_motion_event('MotionStop')
             motion_events.append(starting_event)
-            last_event = starting_event
+            self.last_event = starting_event
 
-        self.is_motion = last_event.Event == "MotionStart"
+        self.is_motion = self.last_event.Event == "MotionStart"
 
         # get events until number of seconds expire
         async_iter = self.camera.async_event_stream("VideoMotion")
         async for event_str in self.cancellable_aiter(async_iter, self.cancellation_event):
             current_event = self.build_event_obj(event_str)
             motion_events.append(current_event)
-            if last_event and last_event.Event == "MotionStart" and current_event.Event == "MotionStop":
-                motion_event_pairs.append((last_event, current_event))
-            if last_event and last_event.Event == current_event.Event:
+            if self.last_event and self.last_event.Event == "MotionStart" and current_event.Event == "MotionStop":
+                motion_event_pairs.append((self.last_event, current_event))
+            if self.last_event and self.last_event.Event == current_event.Event:
                 pass # ignore this duplicate event
             else:
-                last_event = current_event   
-            self.is_motion = last_event.Event == "MotionStart"
+                self.last_event = current_event   
+            self.is_motion = self.last_event.Event == "MotionStart"
 
         # end event collection
         ending_event=self.build_motion_event('End')
-        if last_event and last_event.Event == "MotionStart":
-            motion_event_pairs.append((last_event, ending_event))
+        if self.last_event and self.last_event.Event == "MotionStart":
+            motion_event_pairs.append((self.last_event, ending_event))
         end_time = datetime.utcnow()
 
         self.log.info("read_camera_motion_async - DONE")
