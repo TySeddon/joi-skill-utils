@@ -1,9 +1,6 @@
 import yaml
 
-raise Exception("Test")
-
 def get_setting(key, resident_id=None):
-    raise Exception("Test")
     if resident_id is None:
         # if we are trying to lookup an environment key (not specific to resident)
         with open("enviro.yaml", 'rt') as stream:
