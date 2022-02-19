@@ -12,6 +12,7 @@ class MotionDetection():
         self.log = log
         self.is_done = False
         self.is_motion = False
+        self.last_event = None
         self.cancellation_event = asyncio.Event(loop=loop)
 
     def build_motion_event(self,event_name):
