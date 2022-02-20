@@ -131,13 +131,14 @@ class JoiClient():
             print(response.status_code)
             raise Exception(f"Error calling {response.url} Status code {response.status_code}.  {response.reason} {response.content}")     
 
-    def add_MediaInteraction(self, memorybox_session_media_id, media_percent_completed, event, data):
+    def add_MediaInteraction(self, memorybox_session_media_id, elapsed_seconds, media_percent_completed, event, data):
         response = requests.post(MEDIAINTERACTION_PATH, headers=self._build_header(), 
                     json={
                         'media_interaction_id': str(uuid.uuid4()),
                         'memorybox_session_media': memorybox_session_media_id,
                         'resident' : self.resident_id,
                         'log_datetime': datetime.utcnow().isoformat(),
+                        'elapsed_seconds': elapsed_seconds,
                         'media_percent_completed': media_percent_completed,
                         'event': event,
                         'data': data,
