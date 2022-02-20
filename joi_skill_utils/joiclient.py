@@ -97,7 +97,7 @@ class JoiClient():
         else:
             raise Exception(f"Error calling {response.url} Status code {response.status_code}.  {response.reason} {response.content}")     
 
-    def start_MemoryBoxSessionMedia(self, memorybox_session_id, media_url, media_name, media_artist, media_tags, media_classification):
+    def start_MemoryBoxSessionMedia(self, memorybox_session_id, media_url, media_name, media_artist, media_tags, media_classification, media_analysis):
         response = requests.post(MEMORYBOXSESSIONMEDIA_PATH, headers=self._build_header(), 
                     json={
                         'memorybox_session_media_id': str(uuid.uuid4()),
@@ -108,7 +108,8 @@ class JoiClient():
                         'media_name': media_name,
                         'media_artist': media_artist,
                         'media_tags': media_tags,
-                        'media_classification': media_classification
+                        'media_classification': media_classification,
+                        'media_analysis': media_analysis
                     })
         if response.status_code == 201:
             return munchify(json.loads(response.content))
