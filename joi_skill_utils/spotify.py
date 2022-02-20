@@ -110,3 +110,7 @@ class Spotify():
             self.spotify_client.volume(volume_pct)
         except Exception:
             pass            
+
+    def get_audio_features(self, track_id):
+        features_result  = self.spotify_client.audio_features(track_id)
+        return munchify(features_result[0]) if features_result else None
