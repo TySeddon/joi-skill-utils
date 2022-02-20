@@ -121,7 +121,7 @@ class JoiClient():
                     json={
                         'media_percent_completed': media_percent_completed,
                         'media_end_datetime': datetime.utcnow().isoformat(),
-                        'resident_motion': json.dumps(resident_motion),
+                        'resident_motion': resident_motion,
                         'resident_utterances': resident_utterances,
                         'resident_self_reported_feeling': resident_self_reported_feeling
                     })
