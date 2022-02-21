@@ -142,7 +142,7 @@ class MotionDetection():
 
     def build_rolling_history(self, history, window_size):
         series = pd.Series(history)
-        return series.rolling(window_size).sum().apply(lambda o: o/window_size).tolist()
+        return series.rolling(window_size).sum().apply(lambda o: o/window_size).fillna(0).tolist()
 
     def create_motion_report(self, start_time, end_time, motion_event_pairs):
         history = self.build_motion_history(start_time, end_time, motion_event_pairs)

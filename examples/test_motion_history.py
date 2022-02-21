@@ -20,4 +20,4 @@ print(periods)
 # rolling 
 s = pd.Series(history)
 window_size = 5
-print(s.rolling(window_size).sum().apply(lambda o: o/window_size).tolist())
+print(s.rolling(window_size).sum().apply(lambda o: o/window_size).fillna(0).tolist())
