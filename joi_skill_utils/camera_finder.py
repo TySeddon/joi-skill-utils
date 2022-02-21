@@ -27,7 +27,7 @@ class CameraFinder():
         return result  
 
     def get_my_subnet(self):
-        ip_addresses = [o for o in self.get_ip_addresses() if not o.startswith("169") and not o.startswith("127")]
+        ip_addresses = [o for o in self.get_ip_addresses() if not o.startswith("169") and not o.startswith("127") and not o.startswith("192.168.0.")]
         self.log.info(ip_addresses)
         if not ip_addresses:
             self.log.error("Could not determine IP address")
