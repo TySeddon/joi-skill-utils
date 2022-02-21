@@ -4,6 +4,7 @@ import asyncio
 from asyncio import Event
 from typing import AsyncIterator
 import sys
+import pandas as pd
 from mycroft.messagebus import Message
 
 class MotionDetection():
@@ -138,6 +139,26 @@ class MotionDetection():
             history.append(int(self.is_motion))
         #sys.stdout.flush()        
         return history
+
+    def build_rolling_history(self, history, window_size):
+        series = pd.Series(history)
+        return series.rolling(window_size).sum().apply(lambda o: o/window_size).tolist()
+
+    def create_motion_report(self, start_time, end_time, motion_event_pairs):
+        history = self.camera_motion.build_motion_history(start_time, end_time, motion_event_pairs)
+        pairs = [(p[0].DateTime.isoformat(), p[1].DateTime.isoformat()) for p in motion_event_pairs]
+        report = {
+            'start_time':start_time.isoformat(),
+            'end_time':end_time.isoformat(),
+            'num_of_seconds': (end_time-start_time).seconds,
+            'motion_event_pairs': pairs,
+            'history': history,
+            'rolling_history_5sec': self.build_rolling_history(history,5),
+            'rolling_history_10sec': self.build_rolling_history(history,10),
+            'percent': round(sum(history)/len(history),2) if history else None
+        }
+        self.log.info(report)
+        return report
 
     async def report_loop(self):
         while True:
