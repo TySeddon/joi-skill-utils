@@ -145,7 +145,7 @@ class MotionDetection():
         return series.rolling(window_size).sum().apply(lambda o: o/window_size).tolist()
 
     def create_motion_report(self, start_time, end_time, motion_event_pairs):
-        history = self.camera_motion.build_motion_history(start_time, end_time, motion_event_pairs)
+        history = self.build_motion_history(start_time, end_time, motion_event_pairs)
         pairs = [(p[0].DateTime.isoformat(), p[1].DateTime.isoformat()) for p in motion_event_pairs]
         report = {
             'start_time':start_time.isoformat(),
