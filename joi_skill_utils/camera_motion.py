@@ -158,7 +158,7 @@ class MotionDetection():
             'percent': round(sum(history)/len(history),2) if history else None
         }
         self.log.info(report)
-        return report
+        return munchify(report)
 
     async def report_loop(self):
         while True:

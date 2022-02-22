@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name='joi_skill_utils',
-    version='0.0.28',
+    version='0.0.29',
     author='Ty Seddon',
     author_email='ty.seddon@cognivista.com',
     description='Utility classes shared by multiple Mycroft Skills for Joi',
@@ -28,6 +28,7 @@ setuptools.setup(
         'azure-ai-language-questionanswering',
         'spotipy==2.19.0',
         'amcrest',
+        'numpy',
         'pandas',
         'ifaddr'
     ],
