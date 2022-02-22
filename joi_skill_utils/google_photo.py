@@ -1,8 +1,8 @@
 import os 
-import pickle
 import json
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
+from google.oauth2.credentials import Credentials
 import requests
 from munch import munchify
 
@@ -17,9 +17,8 @@ class GooglePhoto():
 
     def _login(self):
         creds = None
-        if(os.path.exists("token.pickle")):
-            with open("token.pickle", "rb") as tokenFile:
-                creds = pickle.load(tokenFile)
+        if(os.path.exists("token.json")):
+            creds = Credentials.from_authorized_user_file('token.json', SCOPES)
         if not creds or not creds.valid:
             if (creds and creds.expired and creds.refresh_token):
                 try:
@@ -29,8 +28,8 @@ class GooglePhoto():
             if not creds:
                 flow = InstalledAppFlow.from_client_secrets_file('client_secret.json', SCOPES)
                 creds = flow.run_local_server(port = 0)
-            with open("token.pickle", "wb") as tokenFile:
-                pickle.dump(creds, tokenFile)
+            with open('token.json', 'w') as token:
+                token.write(creds.to_json())
         return creds            
 
     def _build_header(self):
