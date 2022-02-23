@@ -38,7 +38,7 @@ class MotionDetection():
         self.is_done = False
         self.is_motion = False
 
-    def stop(self):
+    def _stop(self):
         self.is_done = True
 
     async def cancellable_aiter(self, async_iterator: AsyncIterator, cancellation_event: Event) -> AsyncIterator:
@@ -68,7 +68,6 @@ class MotionDetection():
     def _cancel(self, cancellation_event):
         self.log.info("Sending Cancel Signal")
         cancellation_event.set()
-        self.is_done = True
         self.log.info("Sent Cancel Signal")
 
     def cancel(self):
@@ -125,6 +124,7 @@ class MotionDetection():
         end_time = datetime.utcnow()
 
         self.log.info("read_camera_motion_async - DONE")
+        self._stop()
         return (start_time, end_time, motion_event_pairs)
 
 
