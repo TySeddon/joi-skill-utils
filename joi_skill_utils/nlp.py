@@ -6,6 +6,8 @@ from azure.ai.language.questionanswering import models as qna
 import re
 from munch import munchify
 from itertools import groupby
+
+import munch
 from .enviro import get_setting
 
 class NLP():
@@ -63,12 +65,13 @@ class NLP():
 
     def get_sentiment(self, document):
         response = self.ta_client.analyze_sentiment(documents=[document])[0]
-        return {"sentiment":
-                    {
-                        "positive":response.confidence_scores.positive,
-                        "neutral":response.confidence_scores.neutral,
-                        "negative":response.confidence_scores.negative,
-                    }}
+        return munchify({"sentiment":
+                            {
+                                "positive":response.confidence_scores.positive,
+                                "neutral":response.confidence_scores.neutral,
+                                "negative":response.confidence_scores.negative,
+                            }
+                        })
 
     def extract_summary(self, document):
 
