@@ -61,6 +61,9 @@ class NLP():
 
     ########################
 
+    def get_sentiment(self, document):
+        response = self.ta_client.analyze_sentiment(documents=[document])[0]
+        return response.confidence_scores
 
     def extract_summary(self, document):
 

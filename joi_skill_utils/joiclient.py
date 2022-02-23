@@ -132,7 +132,7 @@ class JoiClient():
             print(response.status_code)
             raise Exception(f"Error calling {response.url} Status code {response.status_code}.  {response.reason} {response.content}")     
 
-    def add_MediaInteraction(self, memorybox_session_media_id, elapsed_seconds, media_percent_completed, event, data):
+    def add_MediaInteraction(self, memorybox_session_media_id, elapsed_seconds, media_percent_completed, event, data, analysis):
         response = requests.post(MEDIAINTERACTION_PATH, headers=self._build_header(), 
                     json={
                         'media_interaction_id': str(uuid.uuid4()),
@@ -143,6 +143,7 @@ class JoiClient():
                         'media_percent_completed': media_percent_completed,
                         'event': event,
                         'data': data,
+                        'analysis': analysis
                     })
         if response.status_code == 201:
             return munchify(json.loads(response.content))
