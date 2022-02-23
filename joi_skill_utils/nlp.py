@@ -63,7 +63,12 @@ class NLP():
 
     def get_sentiment(self, document):
         response = self.ta_client.analyze_sentiment(documents=[document])[0]
-        return response.confidence_scores
+        return {"sentiment":
+                    {
+                        "positive":response.confidence_scores.positive,
+                        "neutral":response.confidence_scores.neutral,
+                        "negative":response.confidence_scores.negative,
+                    }}
 
     def extract_summary(self, document):
 
