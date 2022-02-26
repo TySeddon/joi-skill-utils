@@ -166,6 +166,18 @@ class JoiClient():
         else:
             raise Exception(f"Error calling {response.url} Status code {response.status_code}.  {response.reason} {response.content}")     
 
+    def add_DeviceMessage_Me(self, message):
+        url = f"{DEVICEMESSAGE_PATH}me/"
+        response = requests.post(url, headers=self._build_header(), 
+                    json={
+                        'device':self.device_id,
+                        'message':message
+                    })
+        if response.status_code == 201:
+            return munchify(json.loads(response.content))
+        else:
+            raise Exception(f"Error calling {response.url} Status code {response.status_code}.  {response.reason} {response.content}")     
+
     def get_DeviceMessages(self):
         response = requests.get(f"{DEVICEMESSAGE_PATH}?device={self.device_id}", headers=self._build_header())
         if response.status_code == 200:

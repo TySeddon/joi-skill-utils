@@ -59,7 +59,16 @@ print(len(messages))
 for m in messages:
     print(messages)
 
-
 messages = client.get_DeviceMessages()
 print(len(messages))
 
+######
+client.add_DeviceMessage_Me(message={"action":"test"})
+
+messages = client.get_DeviceMessages()
+print(len(messages))
+for m in messages:
+    print(messages)
+
+messages = client.get_DeviceMessages()
+print(len(messages))
