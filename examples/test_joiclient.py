@@ -21,19 +21,24 @@ session_media = client.start_MemoryBoxSessionMedia(
                         media_name="some name",
                         media_artist="some artist",
                         media_tags="some tags",
-                        media_classification="some classification")
+                        media_classification="some classification",
+                        media_features={})
 
 media_interaction = client.add_MediaInteraction(
                         memorybox_session_media_id=session_media.memorybox_session_media_id, 
                         media_percent_completed=0,
+                        elapsed_seconds=3,
                         event="prompt",
-                        data="What a lovely garden")
+                        data="What a lovely garden",
+                        analysis={})
 
 media_interaction = client.add_MediaInteraction(
                         memorybox_session_media_id=session_media.memorybox_session_media_id, 
                         media_percent_completed=0,
+                        elapsed_seconds=3,
                         event="utterance",
-                        data="I miss working in my garden")
+                        data="I miss working in my garden",
+                        analysis={})
 
 client.end_MemoryBoxSessionMedia(
                         memorybox_session_media_id=session_media.memorybox_session_media_id, 
@@ -46,3 +51,15 @@ client.end_MemoryBoxSession(
                         memorybox_session_id=mb_session.memorybox_session_id, 
                         session_end_method="natural", 
                         resident_self_reported_feeling="happy")
+
+client.add_DeviceMessage(message={"action":"test"})
+
+messages = client.get_DeviceMessages()
+print(len(messages))
+for m in messages:
+    print(messages)
+
+
+messages = client.get_DeviceMessages()
+print(len(messages))
+

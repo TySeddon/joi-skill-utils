@@ -13,6 +13,7 @@ MEMORYBOX_PATH = f"{BASE_URL}/joi/v1/memoryboxes/"
 MEMORYBOXSESSION_PATH = f"{BASE_URL}/joi/v1/memoryboxsessions/"
 MEMORYBOXSESSIONMEDIA_PATH = f"{BASE_URL}/joi/v1/memoryboxsessionmedia/"
 MEDIAINTERACTION_PATH = f"{BASE_URL}/joi/v1/mediainteractions/"
+DEVICEMESSAGE_PATH = f"{BASE_URL}/joi/v1/devicemessages/"
 
 MUSIC_TYPE = 1
 PHOTO_TYPE = 2
@@ -150,3 +151,35 @@ class JoiClient():
         else:
             raise Exception(f"Error calling {response.url} Status code {response.status_code}.  {response.reason} {response.content}")     
 
+
+    def add_DeviceMessage(self, message):
+        response = requests.post(DEVICEMESSAGE_PATH, headers=self._build_header(), 
+                    json={
+                        'device_message_id': str(uuid.uuid4()),
+                        'device': self.device_id,
+                        'resident' : self.resident_id,
+                        'message_datetime': datetime.utcnow().isoformat(),
+                        'message':message
+                    })
+        if response.status_code == 201:
+            return munchify(json.loads(response.content))
+        else:
+            raise Exception(f"Error calling {response.url} Status code {response.status_code}.  {response.reason} {response.content}")     
+
+    def get_DeviceMessages(self):
+        response = requests.get(f"{DEVICEMESSAGE_PATH}?device={self.device_id}", headers=self._build_header())
+        if response.status_code == 200:
+            objs = munchify(json.loads(response.content))
+            for obj in objs:
+                self.remove_DeviceMessage(obj.device_message_id)    
+            return munchify(json.loads(response.content))
+        else:
+            raise Exception(f"Error calling {response.url} Status code {response.status_code}.  {response.reason} {response.content}")     
+
+    def remove_DeviceMessage(self, device_message_id):
+        url = f"{DEVICEMESSAGE_PATH}{device_message_id}"
+        response = requests.delete(url, headers=self._build_header())
+        if response.status_code == 204:
+            return True
+        else:
+            raise Exception(f"Error calling {response.url} Status code {response.status_code}.  {response.reason} {response.content}")   
