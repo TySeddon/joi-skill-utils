@@ -41,6 +41,9 @@ class MotionDetection():
     def _stop(self):
         self.is_done = True
 
+    def check_done(self):
+        return self.is_done
+
     async def cancellable_aiter(self, async_iterator: AsyncIterator, cancellation_event: Event) -> AsyncIterator:
         cancellation_task = asyncio.create_task(cancellation_event.wait())
         result_iter = async_iterator.__aiter__()
