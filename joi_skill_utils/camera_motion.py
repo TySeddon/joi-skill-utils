@@ -81,7 +81,7 @@ class MotionDetection():
         # setup cancellation after specified number of seconds
         self.cancellation_event.clear()
         loop = asyncio.get_event_loop()
-        loop.call_later(seconds_length, self._cancel, self.cancellation_event)
+        cancelTimer = loop.call_later(seconds_length, self._cancel, self.cancellation_event)
 
         self._start()
 
@@ -119,6 +119,8 @@ class MotionDetection():
                                         'datetime':last_event.DateTime.isoformat()
                                 }))
             self.is_motion = last_event.Event == "MotionStart"
+
+        cancelTimer.cancel() # cancel the timer that would cancel this
 
         # end event collection
         ending_event=self.build_motion_event('End')
