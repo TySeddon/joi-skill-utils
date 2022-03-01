@@ -13,6 +13,7 @@ The purpose of this project is to provide a central place for all shared and uti
     pip install azure-ai-language-questionanswering    
     pip install spotipy==2.19.0
     pip install amcrest
+    pip install numpy
     pip install pandas
     pip install ifaddr
 
