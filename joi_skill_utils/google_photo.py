@@ -37,7 +37,7 @@ class GooglePhoto():
 
     def create_album(self, title):
         header = self._build_header()
-        response = requests.post(ALBUMS_URL, headers=header, data=str({"album": {'title': 'Joi'}}))
+        response = requests.post(ALBUMS_URL, headers=header, data=str({"album": {'title': title}}))
 
     def get_albums(self):
         header = self._build_header()
