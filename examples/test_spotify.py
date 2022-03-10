@@ -6,7 +6,7 @@ import random
 sp = Spotify()
 playlists = sp.get_playlists()
 
-playlist_id = '2LjLbyEEw9aRqMZo5qpK4O'
+playlist_id = '28z1WmT7e4rp2J0WVjNcPR'
 tracks = sp.get_playlist_tracks(playlist_id)
 print(len(tracks))
 

@@ -5,9 +5,10 @@ from joi_skill_utils.google_photo import GooglePhoto
 client = GooglePhoto()
 
 albums = client.get_albums()
-album = list(filter(lambda o: o.title == "Joi", albums))[0]
-pprint(album)
-print(album.id)
+for album in albums:
+    print(f"{album.title}, {album.id}")
+
+album_id = ''
 
 mediaItems = client.get_media_items(album_id=album.id)
 print('===Getting Media Items=============')
